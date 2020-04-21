@@ -1,5 +1,9 @@
 /* @flow */
 
+/**
+ * 此处其实不是最初的Vue，而是经过了多次在原型上赋属性的操作之后的Vue
+ * 此处Vue添加了config而Vue.config 是一个对象，包含 Vue 的全局配置
+ */
 import Vue from 'core/index'
 import config from 'core/config'
 import { extend, noop } from 'shared/util'

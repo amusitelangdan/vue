@@ -1,3 +1,7 @@
+/**
+ * 此处其实不是最初的Vue，而是经过了多次在原型上赋属性的操作之后的Vue
+ * 在此处主要对Vue挂载了全局api
+ */
 import Vue from './instance/index'
 import { initGlobalAPI } from './global-api/index'
 import { isServerRendering } from 'core/util/env'
