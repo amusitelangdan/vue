@@ -13,6 +13,12 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 let uid = 0
 
 export function initMixin (Vue: Class<Component>) {
+  /**
+   * 原型定义_init方法，做了一堆初始化工作
+   * _uid: 定过uid
+   * 合并options
+   * 合并到$options
+   */
   Vue.prototype._init = function (options?: Object) {
     const vm: Component = this
     // a uid
@@ -49,6 +55,12 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
+    /**
+     * initLifecycle初始化生命周期
+     * initEvents 事件中心
+     * initRender Render
+     * initState state
+     */
     initLifecycle(vm)
     initEvents(vm)
     initRender(vm)
