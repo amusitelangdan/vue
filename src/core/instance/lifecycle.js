@@ -138,6 +138,14 @@ export function lifecycleMixin (Vue: Class<Component>) {
   }
 }
 
+/**
+ * 2020-04-22 17:18
+ * 首先将el(DOM)缓存在vm.$el里面
+ * 如果没有render函数摒弃人template并没有转化出这个render就创建createEmptyVNode
+ * callHook ：声明周期
+ * performance ： vue全局配置
+ * new Watcher ： 渲染watcher
+ */
 export function mountComponent (
   vm: Component,
   el: ?Element,

@@ -1,4 +1,22 @@
 /* @flow */
+/**
+ * 2020-04-22 为什么在data中定义一个变量（message）在created、mounted等里面可以通过this.message访问到？
+ * **回答**
+ * 在调用this._int的时候，vue底层调用了init.js里面有一个Vue.prototype._init原型方法,在此方法中有一个initState(vm)指向state.js
+ * 在initState()方法中，我们可以看到它会主动去判断是否是props、data、methods；现在主要讲的是initData()
+ * 当如果vm是data的时候，调用intData(vm)
+ * 拿到vm中的data（vm.$options.data）
+ * 判断是否是一个函数，vue内部推荐data使用函数的方式
+ * 调用getData，getData主要的操作是通过data.call(vm, vm)得到data中return的对象
+ * 接着进行循环及便利，查看data和props以及methods中，是否有相同的属性，如果有则报错
+ * proxy 字面理解是的代理的意思，那么这个函数做了什么
+ * 理解这段代码，这里得先普及一个知识点
+ * Object.defineProperty()方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。
+ * 通过 defineProperty()实际上就是给 Vue 实例定义了新的属性！！！
+ * 这才是重点，这里通过遍历 data，将 data 中的属性/值绑定在了 vm（也就是 Vue 实例）上。
+ * 在 proxy()中的传入的第二个参数_data，实际上为了后面this[sourceKey][key]调用 vm._data（前面有提）中的的属性/值。
+ * 这里通过 vm 上创建新属性，并且采用 set，get 属性描述符使得每一次改变数据都会直接作用于 vm._data 之上。
+ */
 
 import config from '../config'
 import Watcher from '../observer/watcher'
